@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
-import Lottie from 'react-lottie';
+import Lottie from 'lottie-react';
 import loadingAnimation from '../../assets/animations/loading.json';
 
 const ClientDashboard = () => {
@@ -39,7 +39,7 @@ const ClientDashboard = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate('/');
   };
 
   if (showLoader || loading) {

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { FaUsers, FaBuilding, FaPlus, FaTimes, FaSignOutAlt, FaTrash } from 'react-icons/fa';
+import { FaUsers, FaBuilding, FaPlus, FaTimes, FaSignOutAlt, FaTrash, FaProjectDiagram } from 'react-icons/fa';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import loadingAnimation from '../assets/animations/loading.json';
-import Lottie from 'react-lottie';
+import Lottie from 'lottie-react';
+import ProjectManagement from './ceo/ProjectManagement';
 
 const CEODashboard = () => {
   const [activeTab, setActiveTab] = useState('employees');
@@ -28,7 +29,7 @@ const CEODashboard = () => {
   const [showLoader, setShowLoader] = useState(true);
 
   // Add auth token to axios requests
-  axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+  axios.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`;
 
   useEffect(() => {
     // Show loader for 6-7 seconds after login
@@ -44,6 +45,29 @@ const CEODashboard = () => {
     navigate('/');
   };
 
+  const notify = (message, type = 'info') => {
+    const options = {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    };
+
+    switch (type) {
+      case 'success':
+        toast.success(message, options);
+        break;
+      case 'error':
+        toast.error(message, options);
+        break;
+      default:
+        toast.info(message, options);
+    }
+  };
+
   const fetchData = async () => {
     try {
       const [employeesRes, clientsRes] = await Promise.all([
@@ -55,10 +79,10 @@ const CEODashboard = () => {
     } catch (error) {
       console.error('Failed to fetch data:', error);
       if (error.response?.status === 401) {
-        toast.error('Please login again');
+        notify('Please login again', 'error');
         handleLogout();
       } else {
-        toast.error('Failed to fetch data');
+        notify('Failed to fetch data', 'error');
       }
     } finally {
       setLoading(false);
@@ -88,12 +112,10 @@ const CEODashboard = () => {
         };
       }
       
-      const response = await axios.post(endpoint, userData);
-      
-      // Refresh the data after adding
+      await axios.post(endpoint, userData);
       await fetchData();
       
-      toast.success(`${newUser.role === 'employee' ? 'Employee' : 'Client'} added successfully!`);
+      notify(`${newUser.role === 'employee' ? 'Employee' : 'Client'} added successfully!`, 'success');
       setShowAddModal(false);
       setNewUser({
         name: '',
@@ -107,10 +129,10 @@ const CEODashboard = () => {
     } catch (error) {
       console.error('Error adding user:', error);
       if (error.response?.status === 401) {
-        toast.error('Please login again');
+        notify('Please login again', 'error');
         handleLogout();
       } else {
-        toast.error(error.response?.data?.message || 'Failed to add user');
+        notify(error.response?.data?.message || 'Failed to add user', 'error');
       }
     }
   };
@@ -123,10 +145,10 @@ const CEODashboard = () => {
         ? `http://localhost:5000/api/ceo/employees/${userId}`
         : `http://localhost:5000/api/ceo/clients/${userId}`;
       await axios.delete(endpoint);
-      toast.success('User deleted successfully!');
+      notify('User deleted successfully!', 'success');
       await fetchData();
     } catch (error) {
-      toast.error('Failed to delete user');
+      notify('Failed to delete user', 'error');
     }
   };
 
@@ -137,10 +159,10 @@ const CEODashboard = () => {
         ? `http://localhost:5000/api/ceo/employees/${userId}`
         : `http://localhost:5000/api/ceo/clients/${userId}`;
       await axios.put(endpoint, { access: newAccess });
-      toast.success('Access updated!');
+      notify('Access updated!', 'success');
       await fetchData();
     } catch (error) {
-      toast.error('Failed to update access');
+      notify('Failed to update access', 'error');
     }
   };
 
@@ -155,7 +177,18 @@ const CEODashboard = () => {
 
   return (
     <div className="ceo-dashboard">
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className="dashboard-header">
         <div className="header-content">
           <h1>Welcome, {user?.name}</h1>
@@ -181,6 +214,8 @@ const CEODashboard = () => {
         </div>
       </div>
 
+     
+
       <div className="dashboard-content">
         <div className="dashboard-tabs">
           <button
@@ -196,14 +231,30 @@ const CEODashboard = () => {
             <FaBuilding /> Clients
           </button>
           <button
-            className="tab-button add-button"
-            onClick={() => {
-              setNewUser({...newUser, role: activeTab === 'employees' ? 'employee' : 'client'});
-              setShowAddModal(true);
-            }}
+            className={`tab-button ${activeTab === 'projects' ? 'active' : ''}`}
+            onClick={() => setActiveTab('projects')}
           >
-            <FaPlus /> Add {activeTab === 'employees' ? 'Employee' : 'Client'}
+            <FaProjectDiagram /> Projects
           </button>
+          {(activeTab === 'employees' || activeTab === 'clients') && (
+            <button
+              className="tab-button add-button"
+              onClick={() => {
+                setNewUser({
+                  name: '',
+                  email: '',
+                  password: '',
+                  role: activeTab === 'clients' ? 'client' : 'employee',
+                  department: '',
+                  position: '',
+                  company: ''
+                });
+                setShowAddModal(true);
+              }}
+            >
+              <FaPlus /> Add {activeTab === 'employees' ? 'Employee' : 'Client'}
+            </button>
+          )}
         </div>
 
         <div className="users-list">
@@ -264,7 +315,7 @@ const CEODashboard = () => {
                 </table>
               </div>
             </div>
-          ) : (
+          ) : activeTab === 'clients' ? (
             <div>
               <h2>Clients</h2>
               <div className="table-container">
@@ -313,7 +364,9 @@ const CEODashboard = () => {
                 </table>
               </div>
             </div>
-          )}
+          ) : activeTab === 'projects' ? (
+            <ProjectManagement />
+          ) : null}
         </div>
       </div>
 

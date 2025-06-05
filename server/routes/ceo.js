@@ -160,42 +160,182 @@ router.delete('/clients/:id', async (req, res) => {
   }
 });
 
-// Get all projects
-router.get('/projects', async (req, res) => {
+// Get project statistics
+router.get('/projects/stats', async (req, res) => {
   try {
-    const projects = await Project.find().populate('client assignedEmployees');
-    res.json(projects);
+    const totalProjects = await Project.countDocuments();
+    const ongoingProjects = await Project.countDocuments({ status: 'ongoing' });
+    const completedProjects = await Project.countDocuments({ status: 'completed' });
+    const holdProjects = await Project.countDocuments({ status: 'hold' });
+
+    const projectsByPriority = await Project.aggregate([
+      {
+        $group: {
+          _id: '$priority',
+          count: { $sum: 1 }
+        }
+      }
+    ]);
+
+    res.json({
+      totalProjects,
+      ongoingProjects,
+      completedProjects,
+      holdProjects,
+      projectsByPriority
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-// Add a new project
-router.post('/projects', async (req, res) => {
-  const project = new Project({
-    name: req.body.name,
-    client: req.body.clientId,
-    assignedEmployees: req.body.employeeIds,
-    timeline: {
-      startDate: req.body.startDate,
-      endDate: req.body.endDate,
-    },
-    status: req.body.status,
-  });
-
+// Get all projects with detailed information
+router.get('/projects', async (req, res) => {
   try {
+    console.log('Fetching projects...');
+    const projects = await Project.find()
+      .populate({
+        path: 'client',
+        select: 'name email companyDetails',
+        model: 'User'
+      })
+      .populate({
+        path: 'assignedEmployees.employee',
+        select: 'name email position',
+        model: 'User'
+      })
+      .sort({ createdAt: -1 });
+
+    console.log('Found projects:', projects);
+    res.json(projects);
+  } catch (err) {
+    console.error('Error fetching projects:', err);
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Get project by ID with detailed information
+router.get('/projects/:id', async (req, res) => {
+  try {
+    const project = await Project.findById(req.params.id)
+      .populate('client', 'name email companyDetails')
+      .populate('assignedEmployees.employee', 'name email position');
+    
+    if (!project) {
+      return res.status(404).json({ message: 'Project not found' });
+    }
+    res.json(project);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Create new project
+router.post('/projects', async (req, res) => {
+  try {
+    const {
+      name,
+      description,
+      clientId,
+      assignedEmployees,
+      startDate,
+      endDate,
+      budget,
+      priority,
+      milestones
+    } = req.body;
+
+    const project = new Project({
+      name,
+      description,
+      client: clientId,
+      assignedEmployees: assignedEmployees.map(emp => ({
+        employee: emp.employee || emp.id,
+        role: emp.role
+      })).filter(emp => emp.employee),
+      timeline: {
+        startDate,
+        endDate,
+        milestones: milestones || []
+      },
+      budget,
+      priority
+    });
+
     const newProject = await project.save();
-    res.status(201).json(newProject);
+    const populatedProject = await Project.findById(newProject._id)
+      .populate('client', 'name email companyDetails')
+      .populate('assignedEmployees.employee', 'name email position');
+
+    res.status(201).json(populatedProject);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
 
-// Delete a project
+// Update project
+router.put('/projects/:id', async (req, res) => {
+  try {
+    const project = await Project.findById(req.params.id);
+    if (!project) {
+      return res.status(404).json({ message: 'Project not found' });
+    }
+
+    const {
+      name,
+      description,
+      clientId,
+      assignedEmployees,
+      startDate,
+      endDate,
+      status,
+      budget,
+      priority,
+      milestones
+    } = req.body;
+
+    if (name) project.name = name;
+    if (description) project.description = description;
+    if (clientId) project.client = clientId;
+    if (assignedEmployees) {
+      project.assignedEmployees = assignedEmployees.map(emp => ({
+        employee: emp.employee || emp.id,
+        role: emp.role
+      })).filter(emp => emp.employee);
+    }
+    if (startDate || endDate) {
+      project.timeline = {
+        ...project.timeline,
+        startDate: startDate || project.timeline.startDate,
+        endDate: endDate || project.timeline.endDate
+      };
+    }
+    if (status) project.status = status;
+    if (budget) project.budget = budget;
+    if (priority) project.priority = priority;
+    if (milestones) project.timeline.milestones = milestones;
+
+    const updatedProject = await project.save();
+    const populatedProject = await Project.findById(updatedProject._id)
+      .populate('client', 'name email companyDetails')
+      .populate('assignedEmployees.employee', 'name email position');
+
+    res.json(populatedProject);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// Delete project
 router.delete('/projects/:id', async (req, res) => {
   try {
-    await Project.findByIdAndDelete(req.params.id);
-    res.json({ message: 'Project deleted' });
+    const project = await Project.findById(req.params.id);
+    if (!project) {
+      return res.status(404).json({ message: 'Project not found' });
+    }
+
+    await project.deleteOne();
+    res.json({ message: 'Project deleted successfully' });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

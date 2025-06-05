@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const ceoRoutes = require('./routes/ceo');
 const authRoutes = require('./routes/auth');
 const employeeRoutes = require('./routes/employee');
+const clientRoutes = require('./routes/client');
 const auth = require('./middleware/auth');
 
 dotenv.config();
@@ -27,6 +28,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 app.use('/api/auth', authRoutes);
 app.use('/api/ceo', auth, ceoRoutes);
 app.use('/api/employee', auth, employeeRoutes);
+app.use('/api/client', auth, clientRoutes);
 
 // TODO: Add routes for Employee and Client Manager
 

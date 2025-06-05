@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './ProjectManagement.css';  // Import the CSS file
 
 const EmployeeManagement = () => {
   const [employees, setEmployees] = useState([]);
@@ -98,44 +99,48 @@ const EmployeeManagement = () => {
       {error && <div className="error-message">{error}</div>}
       
       <form onSubmit={handleSubmit} className="management-form">
-        <div className="form-group">
-          <label>Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        {!editingId && (
+        <div className="form-row">
           <div className="form-group">
-            <label>Password:</label>
+            <label>Name:</label>
             <input
-              type="password"
-              name="password"
-              value={formData.password}
+              type="text"
+              name="name"
+              value={formData.name}
               onChange={handleChange}
               required
             />
           </div>
-        )}
-        <div className="form-group">
-          <label>Role:</label>
-          <select name="role" value={formData.role} onChange={handleChange}>
-            <option value="employee">Employee</option>
-            <option value="manager">Manager</option>
-          </select>
+          <div className="form-group">
+            <label>Email:</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
+        <div className="form-row">
+          {!editingId && (
+            <div className="form-group">
+              <label>Password:</label>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          )}
+          <div className="form-group">
+            <label>Role:</label>
+            <select name="role" value={formData.role} onChange={handleChange}>
+              <option value="employee">Employee</option>
+              <option value="manager">Manager</option>
+            </select>
+          </div>
         </div>
         <div className="form-buttons">
           <button type="submit" className="submit-button">

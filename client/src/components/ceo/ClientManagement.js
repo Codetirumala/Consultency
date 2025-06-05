@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './ProjectManagement.css';  // Import the CSS file
 
 const ClientManagement = () => {
   const [clients, setClients] = useState([]);
@@ -122,67 +123,73 @@ const ClientManagement = () => {
       {error && <div className="error-message">{error}</div>}
       
       <form onSubmit={handleSubmit} className="management-form">
-        <div className="form-group">
-          <label>Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        {!editingId && (
+        <div className="form-row">
           <div className="form-group">
-            <label>Password:</label>
+            <label>Name:</label>
             <input
-              type="password"
-              name="password"
-              value={formData.password}
+              type="text"
+              name="name"
+              value={formData.name}
               onChange={handleChange}
               required
             />
           </div>
-        )}
-        <div className="form-group">
-          <label>Company Name:</label>
-          <input
-            type="text"
-            name="company.name"
-            value={formData.companyDetails.name}
-            onChange={handleChange}
-            required
-          />
+          <div className="form-group">
+            <label>Email:</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
         </div>
-        <div className="form-group">
-          <label>Company Address:</label>
-          <input
-            type="text"
-            name="company.address"
-            value={formData.companyDetails.address}
-            onChange={handleChange}
-            required
-          />
+        <div className="form-row">
+          {!editingId && (
+            <div className="form-group">
+              <label>Password:</label>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          )}
+          <div className="form-group">
+            <label>Company Name:</label>
+            <input
+              type="text"
+              name="company.name"
+              value={formData.companyDetails.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
         </div>
-        <div className="form-group">
-          <label>Company Phone:</label>
-          <input
-            type="tel"
-            name="company.phone"
-            value={formData.companyDetails.phone}
-            onChange={handleChange}
-            required
-          />
+        <div className="form-row">
+          <div className="form-group">
+            <label>Company Address:</label>
+            <input
+              type="text"
+              name="company.address"
+              value={formData.companyDetails.address}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Company Phone:</label>
+            <input
+              type="tel"
+              name="company.phone"
+              value={formData.companyDetails.phone}
+              onChange={handleChange}
+              required
+            />
+          </div>
         </div>
         <div className="form-buttons">
           <button type="submit" className="submit-button">

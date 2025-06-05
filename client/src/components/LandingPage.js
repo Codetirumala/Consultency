@@ -9,6 +9,10 @@ import { ClipLoader } from 'react-spinners';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+// Configure axios defaults
+axios.defaults.baseURL = 'http://localhost:5000';
+axios.defaults.headers.common['Content-Type'] = 'application/json';
+
 const LandingPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
@@ -24,13 +28,19 @@ const LandingPage = () => {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      console.log('Attempting login with:', { email });
+      
+      const response = await axios.post('/api/auth/login', {
         email,
         password
       });
 
+      console.log('Login response:', response.data);
+
+      // Store user data and token
       login(response.data.user, response.data.token);
       
+      // Show success message
       toast.success(`Welcome back, ${response.data.user.name}!`, {
         position: "top-right",
         autoClose: 3000,
@@ -54,11 +64,14 @@ const LandingPage = () => {
           navigate('/client/dashboard');
           break;
         default:
-          navigate('/login');
+          navigate('/');
+          toast.error('Invalid user role');
       }
     } catch (error) {
-      setError('Invalid credentials');
-      toast.error('Login failed. Please check your credentials.', {
+      console.error('Login error:', error);
+      const errorMessage = error.response?.data?.message || 'Login failed. Please check your credentials.';
+      setError(errorMessage);
+      toast.error(errorMessage, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

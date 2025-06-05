@@ -32,7 +32,7 @@ const initializeCEO = async () => {
 // Call initializeCEO when the server starts
 initializeCEO();
 
-// Universal Login (CEO, Employee, Manager, Client)
+// Universal Login (CEO, Employee, Client)
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -43,29 +43,52 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
+    // Check if user is active
+    if (user.access === 'inactive') {
+      return res.status(401).json({ message: 'Your account has been deactivated. Please contact the administrator.' });
+    }
+
     // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Create JWT
+    // Create JWT with role
     const token = jwt.sign(
-      { id: user._id, role: user.role },
+      { 
+        id: user._id, 
+        role: user.role,
+        email: user.email 
+      },
       process.env.JWT_SECRET,
       { expiresIn: '24h' }
     );
 
+    // Return user data based on role
+    const userData = {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      access: user.access
+    };
+
+    // Add role-specific data
+    if (user.role === 'employee') {
+      userData.department = user.department;
+      userData.position = user.position;
+      userData.skills = user.skills;
+    } else if (user.role === 'client') {
+      userData.companyDetails = user.companyDetails;
+    }
+
     res.json({
       token,
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role
-      }
+      user: userData
     });
   } catch (error) {
+    console.error('Login error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
@@ -89,8 +112,9 @@ router.post('/employees', async (req, res) => {
     user = new User({
       name,
       email,
-      password: hashedPassword, // use hashed password here
-      role: role || 'employee'
+      password: hashedPassword,
+      role: role || 'employee',
+      access: 'active'
     });
 
     await user.save();

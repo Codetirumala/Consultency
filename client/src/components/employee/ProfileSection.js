@@ -23,7 +23,7 @@ const ProfileSection = ({ user, onUpdate }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token');
+      const token = sessionStorage.getItem('token');
       const response = await axios.put(
         'http://localhost:5000/api/employee/profile',
         {
