@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 import Lottie from 'lottie-react';
 import loadingAnimation from '../../assets/animations/loading.json';
+import config from '../../config';
 
 const ClientDashboard = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const ClientDashboard = () => {
         headers: { Authorization: `Bearer ${token}` }
       };
 
-      const response = await axios.get('http://localhost:5000/api/client/projects', config);
+      const response = await axios.get(`${config.API_URL}/api/client/projects`, config);
       setProjects(response.data);
       setLoading(false);
     } catch (error) {

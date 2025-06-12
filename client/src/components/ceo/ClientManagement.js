@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ProjectManagement.css';  // Import the CSS file
+import config from '../../config';
 
 const ClientManagement = () => {
   const [clients, setClients] = useState([]);
@@ -24,7 +25,7 @@ const ClientManagement = () => {
   const fetchClients = async () => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/ceo/clients', {
+      const response = await axios.get(`${config.API_URL}/api/ceo/clients`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setClients(response.data);
@@ -58,13 +59,13 @@ const ClientManagement = () => {
       const token = sessionStorage.getItem('token');
       if (editingId) {
         await axios.put(
-          `http://localhost:5000/api/ceo/clients/${editingId}`,
+          `${config.API_URL}/api/ceo/clients/${editingId}`,
           formData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
       } else {
         await axios.post(
-          'http://localhost:5000/api/ceo/clients',
+          `${config.API_URL}/api/ceo/clients`,
           formData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -93,7 +94,7 @@ const ClientManagement = () => {
     if (window.confirm('Are you sure you want to delete this client?')) {
       try {
         const token = sessionStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/ceo/clients/${id}`, {
+        await axios.delete(`${config.API_URL}/api/ceo/clients/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         fetchClients();

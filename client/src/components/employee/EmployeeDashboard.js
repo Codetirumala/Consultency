@@ -14,6 +14,7 @@ import TimesheetList from './TimesheetList';
 import ProfileSection from './ProfileSection';
 import './EmployeeDashboard.css';
 import logo from '../../assets/logo.jpg';
+import config from '../../config';
 
 // Lottie animations
 import profileAnimation from '../../assets/animations/profile.json';
@@ -143,8 +144,8 @@ const EmployeeDashboard = () => {
       };
 
       const [projectsRes, timesheetsRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/employee/projects', config),
-        axios.get('http://localhost:5000/api/employee/timesheets', config)
+        axios.get(`${config.API_URL}/api/employee/projects`, config),
+        axios.get(`${config.API_URL}/api/employee/timesheets`, config)
       ]);
 
       setProjects(projectsRes.data);
@@ -171,7 +172,7 @@ const EmployeeDashboard = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        'http://localhost:5000/api/employee/timesheet',
+        `${config.API_URL}/api/employee/timesheet`,
         timesheetData,
         {
           headers: { Authorization: `Bearer ${token}` }

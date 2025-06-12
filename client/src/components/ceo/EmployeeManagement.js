@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ProjectManagement.css';  // Import the CSS file
+import config from '../../config';
 
 const EmployeeManagement = () => {
   const [employees, setEmployees] = useState([]);
@@ -20,7 +21,7 @@ const EmployeeManagement = () => {
   const fetchEmployees = async () => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/ceo/employees', {
+      const response = await axios.get(`${config.API_URL}/api/ceo/employees`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setEmployees(response.data);
@@ -42,13 +43,13 @@ const EmployeeManagement = () => {
       const token = sessionStorage.getItem('token');
       if (editingId) {
         await axios.put(
-          `http://localhost:5000/api/ceo/employees/${editingId}`,
+          `${config.API_URL}/api/ceo/employees/${editingId}`,
           formData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
       } else {
         await axios.post(
-          'http://localhost:5000/api/ceo/employees',
+          `${config.API_URL}/api/ceo/employees`,
           formData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -73,7 +74,7 @@ const EmployeeManagement = () => {
     if (window.confirm('Are you sure you want to delete this employee?')) {
       try {
         const token = sessionStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/ceo/employees/${id}`, {
+        await axios.delete(`${config.API_URL}/api/ceo/employees/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         fetchEmployees();

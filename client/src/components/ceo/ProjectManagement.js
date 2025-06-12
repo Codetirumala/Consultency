@@ -4,6 +4,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './ProjectManagement.css';
+import config from '../../config';
 
 
 const ProjectManagement = () => {
@@ -39,8 +40,8 @@ const ProjectManagement = () => {
   const fetchEmployeesAndClients = async () => {
     try {
       const [employeesRes, clientsRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/ceo/employees'),
-        axios.get('http://localhost:5000/api/ceo/clients')
+        axios.get(`${config.API_URL}/api/ceo/employees`),
+        axios.get(`${config.API_URL}/api/ceo/clients`)
       ]);
       setEmployees(employeesRes.data);
       setClients(clientsRes.data);
@@ -55,8 +56,8 @@ const ProjectManagement = () => {
     try {
       console.log('Fetching projects and stats...');
       const [projectsRes, statsRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/ceo/projects'),
-        axios.get('http://localhost:5000/api/ceo/projects/stats')
+        axios.get(`${config.API_URL}/api/ceo/projects`),
+        axios.get(`${config.API_URL}/api/ceo/projects/stats`)
       ]);
       
       console.log('Fetched projects:', projectsRes.data);
@@ -127,7 +128,7 @@ const ProjectManagement = () => {
 
       console.log('Sending project data:', projectData);
 
-      const response = await axios.post('http://localhost:5000/api/ceo/projects', projectData);
+      const response = await axios.post(`${config.API_URL}/api/ceo/projects`, projectData);
       console.log('Server response:', response.data);
 
       toast.success('Project added successfully!');
@@ -163,7 +164,7 @@ const ProjectManagement = () => {
   const handleEditProject = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/ceo/projects/${selectedProject._id}`, selectedProject);
+      await axios.put(`${config.API_URL}/api/ceo/projects/${selectedProject._id}`, selectedProject);
       toast.success('Project updated successfully!');
       setShowEditModal(false);
       await fetchProjectsAndStats();
@@ -175,7 +176,7 @@ const ProjectManagement = () => {
   const handleDeleteProject = async (projectId) => {
     if (!window.confirm('Are you sure you want to delete this project?')) return;
     try {
-      await axios.delete(`http://localhost:5000/api/ceo/projects/${projectId}`);
+      await axios.delete(`${config.API_URL}/api/ceo/projects/${projectId}`);
       toast.success('Project deleted successfully!');
       await fetchProjectsAndStats();
     } catch (error) {
