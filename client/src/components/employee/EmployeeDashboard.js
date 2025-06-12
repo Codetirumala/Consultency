@@ -13,6 +13,7 @@ import ProjectList from './ProjectList';
 import TimesheetList from './TimesheetList';
 import ProfileSection from './ProfileSection';
 import './EmployeeDashboard.css';
+import logo from '../../assets/logo.jpg';
 
 // Lottie animations
 import profileAnimation from '../../assets/animations/profile.json';

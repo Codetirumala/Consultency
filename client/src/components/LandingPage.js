@@ -8,6 +8,7 @@ import { useAuth } from '../context/AuthContext';
 import { ClipLoader } from 'react-spinners';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import logo from '../assets/logo.jpg';
 
 // Configure axios defaults
 axios.defaults.baseURL = 'http://localhost:5000';
@@ -107,8 +108,12 @@ const LandingPage = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1>Techspot Consulting</h1>
-          <p>Transforming businesses through innovative technology solutions and expert consulting services</p>
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '1.5rem', marginBottom: '0.5rem' }}>
+            <img src={logo} alt="Techspot Logo" style={{ height: '150px', width: 'auto', objectFit: 'contain', display: 'block' }} />
+          </div>
+          <h1 style={{ textAlign: 'center', margin: '0 0 0.5rem 0', fontSize: '3.2rem', fontWeight: 800, lineHeight: 1, position: 'static' }}>Techspot Consulting</h1>
+          <style>{`.hero-section h1::after { display: none !important; }`}</style>
+          <p style={{ textAlign: 'center', marginBottom: '1.8rem' }}>Transforming businesses through innovative technology solutions and expert consulting services</p>
           <div className="features">
             <motion.div 
               className="feature"

@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './ProjectManagement.css';
 
+
 const ProjectManagement = () => {
   const [projects, setProjects] = useState([]);
   const [employees, setEmployees] = useState([]);
@@ -196,6 +197,11 @@ const ProjectManagement = () => {
         pauseOnHover
         theme="light"
       />
+      
+      <div className="dashboard-header">
+        
+        <h1>CEO Dashboard</h1>
+      </div>
       
       {/* Summary Row - Horizontal with Icons */}
       <div className="projects-summary-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '1rem 0', padding: '1rem', background: '#fff', borderRadius: '10px', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
