@@ -33,7 +33,12 @@ const CEODashboard = () => {
   axios.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`;
 
   useEffect(() => {
+    setShowLoader(true);
+    const loaderTimeout = setTimeout(() => {
+      setShowLoader(false);
+    }, 7000); // 7 seconds
     fetchData();
+    return () => clearTimeout(loaderTimeout);
   }, []);
 
   const handleLogout = () => {
