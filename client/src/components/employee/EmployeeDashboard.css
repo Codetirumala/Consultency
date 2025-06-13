@@ -52,12 +52,12 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(90deg, var(--primary) 60%, var(--primary-light) 100%);
-  border-radius: 20px;
-  padding: 36px 40px;
-  margin-bottom: 32px;
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  margin-bottom: 0;
   color: #fff;
-  box-shadow: var(--shadow);
+  box-shadow: none;
 }
 
 .header-content h1 {
@@ -458,4 +458,44 @@ body {
 .Toastify__toast-body {
   font-family: inherit;
   font-size: 14px;
+}
+
+.dashboard-header {
+  background: linear-gradient(90deg, var(--primary) 60%, var(--primary-light) 100%);
+  border-radius: 32px;
+  box-shadow: 0 2px 12px rgba(2,174,238,0.10);
+  margin: 0 auto 32px auto;
+  padding: 2.2rem 2.5rem 2.2rem 2.5rem;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.dashboard-logo {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(2,174,238,0.08);
+  object-fit: cover;
+  margin-bottom: 0;
+  margin-right: 24px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.dashboard-title {
+  font-weight: 800;
+  font-size: 2rem;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 1px;
+  flex: 1;
+  text-align: center;
 } 

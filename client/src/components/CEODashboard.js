@@ -193,10 +193,10 @@ const CEODashboard = () => {
         theme="light"
       />
       <div className="dashboard-header">
-        <div className="header-content" style={{display: 'flex', alignItems: 'center', gap: '2rem', background: 'linear-gradient(90deg, #02aeee 60%, #77d4f3 100%)', borderRadius: 24, padding: '2.2rem 2.5rem', boxShadow: '0 2px 12px rgba(2,174,238,0.10)', marginBottom: 0}}>
-          <img src={logo} alt="Techspot Logo" style={{height: 64, width: 64, borderRadius: '50%', background: '#fff', boxShadow: '0 2px 8px rgba(2,174,238,0.08)', objectFit: 'cover', marginRight: 24}} />
-          <h1 style={{fontWeight: 800, fontSize: '2.2rem', color: '#fff', margin: 0, letterSpacing: 1}}>Welcome to Techspot</h1>
-          <button className="logout-button" style={{marginLeft: 'auto', background: '#fff', color: '#02aeee', fontWeight: 700, borderRadius: 24, padding: '0.8rem 2.2rem', fontSize: '1.1rem', boxShadow: '0 2px 8px rgba(2,174,238,0.08)'}} onClick={handleLogout}>
+        <div className="header-content">
+          <img src={logo} alt="Techspot Logo" className="dashboard-logo" />
+          <h1 className="dashboard-title">Welcome to Techspot</h1>
+          <button className="logout-button" onClick={handleLogout}>
             <FaSignOutAlt style={{marginRight: 8}} /> Logout
           </button>
         </div>

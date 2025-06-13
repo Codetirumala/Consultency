@@ -87,4 +87,25 @@ router.put('/timesheet/:id', auth, async (req, res) => {
   }
 });
 
-module.exports = router; 
+// Update employee profile (only contact, department, position, skills)
+router.put('/profile', auth, async (req, res) => {
+  try {
+    const updateFields = {};
+    if (typeof req.body.contact !== 'undefined') updateFields.contact = req.body.contact;
+    if (typeof req.body.department !== 'undefined') updateFields.department = req.body.department;
+    if (typeof req.body.position !== 'undefined') updateFields.position = req.body.position;
+    if (typeof req.body.skills !== 'undefined') updateFields.skills = req.body.skills;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.id,
+      { $set: updateFields },
+      { new: true }
+    ).select('-password');
+
+    res.json(updatedUser);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+module.exports = router;

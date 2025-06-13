@@ -88,26 +88,62 @@
 }
 
 .dashboard-header {
+  background: linear-gradient(90deg, #02aeee 60%, #77d4f3 100%);
+  border-radius: 24px;
+  box-shadow: 0 2px 12px rgba(2,174,238,0.10);
+  margin: 0 auto 32px auto;
+  padding: 2.2rem 2.5rem 2.2rem 2.5rem;
+  max-width: 1200px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.header-content {
+  display: flex;
   align-items: center;
-  padding: 1rem 2rem;
-  background-color: #fff;
-  border-bottom: 1px solid #FFF;
+  justify-content: space-between;
+  gap: 2rem;
+  width: 100%;
+}
+
+.dashboard-logo {
+  height: 64px;
+  width: 64px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(2,174,238,0.08);
+  object-fit: cover;
+  margin-bottom: 0;
+  margin-right: 24px;
+}
+
+.dashboard-title {
+  font-weight: 800;
+  font-size: 2.2rem;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 1px;
+  white-space: nowrap;
 }
 
 .logout-button {
-  padding: 1rem 1rem;
-  background-color: #02aeee;
-  color: white;
+  background: #fff;
+  color: #02aeee;
+  font-weight: 700;
+  border-radius: 24px;
+  padding: 0.8rem 2.2rem;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(2,174,238,0.08);
   border: none;
-  
-  cursor: pointer;
-  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s, color 0.2s;
 }
 
 .logout-button:hover {
-  background-color: #c82333;
+  background: #e6f7fd;
+  color: #02aeee;
 }
 
 .employee-dashboard {
@@ -302,34 +338,44 @@
 
 .dashboard-stats {
   display: flex;
-  gap: 24px;
-  margin-bottom: 32px;
+  gap: 2.2rem;
+  margin-top: 1.2rem;
+  margin-bottom: 0;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .stat-card {
   background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  padding: 28px 36px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(2,174,238,0.08);
+  padding: 2.2rem 2.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 160px;
-  min-height: 120px;
-  justify-content: center;
-  gap: 10px;
+  min-width: 170px;
+  min-height: 160px;
+  transition: box-shadow 0.2s, transform 0.2s;
 }
+
+.stat-card:hover {
+  box-shadow: 0 4px 16px rgba(2,174,238,0.12);
+  transform: translateY(-4px) scale(1.03);
+}
+
 .stat-icon {
   font-size: 2.2rem;
   color: #02aeee;
   margin-bottom: 6px;
 }
+
 .stat-info h3 {
   font-size: 2.1rem;
   margin: 0;
   color: #1e293b;
   font-weight: 700;
 }
+
 .stat-info p {
   color: #64748b;
   font-size: 1rem;
@@ -348,10 +394,12 @@
   transition: background 0.2s, color 0.2s;
   box-shadow: 0 1px 4px rgba(2, 174, 238, 0.04);
 }
+
 .tab-button.active {
   background: linear-gradient(90deg, #02aeee 60%, #77d4f3 100%);
   color: #fff;
 }
+
 .add-button {
   background: linear-gradient(90deg, #02aeee 60%, #77d4f3 100%);
   color: #fff;
@@ -368,10 +416,12 @@
   overflow: hidden;
   box-shadow: 0 1px 8px rgba(0,0,0,0.04);
 }
+
 .users-table th, .users-table td {
   padding: 14px 18px;
   text-align: left;
 }
+
 .users-table th {
   background: #f7f8fa;
   color: #02aeee;
@@ -381,15 +431,19 @@
   top: 0;
   z-index: 1;
 }
+
 .users-table tr {
   transition: background 0.2s;
 }
+
 .users-table tbody tr:nth-child(even) {
   background: #fcfcfc;
 }
+
 .users-table tbody tr:hover {
   background: #f0f9ff;
 }
+
 .status-badge {
   display: inline-block;
   padding: 4px 16px;
@@ -399,10 +453,12 @@
   background: #f1f5f9;
   color: #64748b;
 }
+
 .status-badge.active {
   background: #d1fae5;
   color: #059669;
 }
+
 .status-badge.inactive {
   background: #fef3c7;
   color: #b45309;
@@ -418,6 +474,7 @@
   justify-content: center;
   z-index: 1000;
 }
+
 .modal-content {
   background: rgba(255,255,255,0.95);
   border-radius: 18px;
@@ -430,6 +487,7 @@
   flex-direction: column;
   align-items: center;
 }
+
 .close-button {
   position: absolute;
   top: 18px;
@@ -440,17 +498,20 @@
   cursor: pointer;
   color: #02aeee;
 }
+
 .add-user-form {
   display: grid;
   gap: 18px;
   width: 100%;
   margin-top: 18px;
 }
+
 .form-group label {
   font-weight: 600;
   color: #02aeee;
   margin-bottom: 4px;
 }
+
 .form-group input {
   padding: 10px;
   border: 1.5px solid #f3f4f6;
@@ -459,10 +520,12 @@
   background: #f9fafb;
   transition: border 0.2s;
 }
+
 .form-group input:focus {
   border-color: #02aeee;
   outline: none;
 }
+
 .submit-button {
   background: linear-gradient(90deg, #02aeee 60%, #77d4f3 100%);
   color: #fff;
@@ -475,6 +538,7 @@
   margin-top: 8px;
   transition: background 0.2s;
 }
+
 .submit-button:hover {
   background: linear-gradient(90deg, #77d4f3 0%, #02aeee 100%);
 }
@@ -490,11 +554,28 @@
     padding: 18px 4px 12px 4px;
   }
 }
+
 @media (max-width: 600px) {
   .header-content {
     flex-direction: column;
     align-items: flex-start;
     gap: 18px;
+    padding: 0;
+  }
+  .dashboard-title {
+    font-size: 1.3rem;
+    white-space: normal;
+  }
+  .dashboard-logo {
+    height: 48px;
+    width: 48px;
+    margin-right: 0;
+  }
+  .logout-button {
+    width: 100%;
+    justify-content: center;
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
   }
   .dashboard-tabs {
     flex-direction: column;
@@ -506,6 +587,17 @@
   }
   .modal-content {
     padding: 18px 6px 12px 6px;
+  }
+  .dashboard-stats {
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: stretch;
+  }
+  .stat-card {
+    min-width: 0;
+    width: 100%;
+    padding: 1.2rem 1rem;
+    min-height: 120px;
   }
 }
 

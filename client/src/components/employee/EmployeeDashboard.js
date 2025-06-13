@@ -31,15 +31,6 @@ const DashboardContainer = styled(motion.div)`
   min-height: 100vh;
 `;
 
-const Header = styled(motion.div)`
-  background: linear-gradient(90deg, var(--primary) 60%, var(--primary-light) 100%);
-  padding: 36px 40px;
-  border-radius: 20px;
-  box-shadow: var(--shadow);
-  margin-bottom: 32px;
-  color: #fff;
-`;
-
 const TabContainer = styled(motion.div)`
   display: flex;
   gap: 16px;
@@ -79,44 +70,6 @@ const ContentContainer = styled(motion.div)`
   border-radius: 18px;
   box-shadow: var(--shadow-sm);
   margin: 0 24px;
-`;
-
-const StatsContainer = styled(motion.div)`
-  display: flex;
-  gap: 32px;
-  margin-bottom: 32px;
-  justify-content: center;
-`;
-
-const StatCard = styled(motion.div)`
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: var(--shadow-sm);
-  padding: 32px 36px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 180px;
-  min-height: 120px;
-  justify-content: center;
-  gap: 10px;
-  transition: box-shadow 0.2s, transform 0.2s;
-  .stat-icon {
-    font-size: 2.2rem;
-    color: var(--primary);
-    margin-bottom: 6px;
-  }
-  .stat-info h3 {
-    font-size: 2.1rem;
-    margin: 0;
-    color: var(--primary);
-    font-weight: 700;
-  }
-  .stat-info p {
-    color: var(--text-light);
-    font-size: 1rem;
-    margin: 0;
-  }
 `;
 
 const EmployeeDashboard = () => {
@@ -206,25 +159,17 @@ const EmployeeDashboard = () => {
       transition={{ duration: 0.5 }}
     >
       <ToastContainer />
-      <Header
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
+      <div className="dashboard-header">
         <div className="header-content">
-          <h1>Welcome back, {user?.name}!</h1>
+          <img src={logo} alt="Techspot Logo" className="dashboard-logo" />
+          <h1 className="dashboard-title">Welcome back, {user?.name}!</h1>
           <button onClick={handleLogout} className="logout-button">
-            <FaSignOutAlt /> Logout
+            <FaSignOutAlt style={{marginRight: 8}} /> Logout
           </button>
         </div>
-      </Header>
-
-      <StatsContainer
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        <StatCard whileHover={{ scale: 1.02 }}>
+      </div>
+      <div className="stats-container">
+        <div className="stat-card">
           <div className="stat-icon">
             <FaProjectDiagram />
           </div>
@@ -232,8 +177,8 @@ const EmployeeDashboard = () => {
             <h3>{projects.length}</h3>
             <p>Active Projects</p>
           </div>
-        </StatCard>
-        <StatCard whileHover={{ scale: 1.02 }}>
+        </div>
+        <div className="stat-card">
           <div className="stat-icon">
             <FaClock />
           </div>
@@ -241,8 +186,8 @@ const EmployeeDashboard = () => {
             <h3>{timesheets.length}</h3>
             <p>Timesheets Submitted</p>
           </div>
-        </StatCard>
-        <StatCard whileHover={{ scale: 1.02 }}>
+        </div>
+        <div className="stat-card">
           <div className="stat-icon">
             <FaChartLine />
           </div>
@@ -250,8 +195,8 @@ const EmployeeDashboard = () => {
             <h3>{timesheets.filter(t => t.status === 'approved').length}</h3>
             <p>Approved Timesheets</p>
           </div>
-        </StatCard>
-      </StatsContainer>
+        </div>
+      </div>
 
       <TabContainer>
         <TabButton

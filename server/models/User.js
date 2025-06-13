@@ -22,6 +22,12 @@ const userSchema = new mongoose.Schema({
   contact: {
     type: String,
   },
+  department: {
+    type: String,
+  },
+  position: {
+    type: String,
+  },
   skills: {
     type: [String],
   },

@@ -24,18 +24,23 @@ const ProfileSection = ({ user, onUpdate }) => {
     e.preventDefault();
     try {
       const token = sessionStorage.getItem('token');
-      const response = await axios.put(
-        'http://localhost:5000/api/employee/profile',
+      await axios.put(
+        '/api/employee/profile',
         {
-          ...formData,
+          contact: formData.contact,
+          department: formData.department,
+          position: formData.position,
           skills: formData.skills.split(',').map(skill => skill.trim())
         },
         {
           headers: { Authorization: `Bearer ${token}` }
         }
       );
-      
-      onUpdate(response.data);
+      // Fetch the latest profile after update
+      const profileRes = await axios.get('/api/employee/profile', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      onUpdate(profileRes.data);
       setIsEditing(false);
       toast.success('Profile updated successfully!');
     } catch (error) {
@@ -63,8 +68,8 @@ const ProfileSection = ({ user, onUpdate }) => {
               type="text"
               name="name"
               value={formData.name}
-              onChange={handleChange}
-              required
+              readOnly
+              disabled
             />
           </div>
 
@@ -74,8 +79,8 @@ const ProfileSection = ({ user, onUpdate }) => {
               type="email"
               name="email"
               value={formData.email}
-              onChange={handleChange}
-              required
+              readOnly
+              disabled
             />
           </div>
 
