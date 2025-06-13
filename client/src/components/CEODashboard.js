@@ -9,6 +9,7 @@ import loadingAnimation from '../assets/animations/loading.json';
 import Lottie from 'lottie-react';
 import ProjectManagement from './ceo/ProjectManagement';
 import config from '../config';
+import logo from '../assets/logo.jpg';
 
 const CEODashboard = () => {
   const [activeTab, setActiveTab] = useState('employees');
@@ -192,10 +193,11 @@ const CEODashboard = () => {
         theme="light"
       />
       <div className="dashboard-header">
-        <div className="header-content">
-          <h1>Welcome, {user?.name}</h1>
-          <button className="logout-button" onClick={handleLogout}>
-            <FaSignOutAlt /> Logout
+        <div className="header-content" style={{display: 'flex', alignItems: 'center', gap: '2rem', background: 'linear-gradient(90deg, #02aeee 60%, #77d4f3 100%)', borderRadius: 24, padding: '2.2rem 2.5rem', boxShadow: '0 2px 12px rgba(2,174,238,0.10)', marginBottom: 0}}>
+          <img src={logo} alt="Techspot Logo" style={{height: 64, width: 64, borderRadius: '50%', background: '#fff', boxShadow: '0 2px 8px rgba(2,174,238,0.08)', objectFit: 'cover', marginRight: 24}} />
+          <h1 style={{fontWeight: 800, fontSize: '2.2rem', color: '#fff', margin: 0, letterSpacing: 1}}>Welcome to Techspot</h1>
+          <button className="logout-button" style={{marginLeft: 'auto', background: '#fff', color: '#02aeee', fontWeight: 700, borderRadius: 24, padding: '0.8rem 2.2rem', fontSize: '1.1rem', boxShadow: '0 2px 8px rgba(2,174,238,0.08)'}} onClick={handleLogout}>
+            <FaSignOutAlt style={{marginRight: 8}} /> Logout
           </button>
         </div>
         <div className="dashboard-stats">
@@ -241,6 +243,7 @@ const CEODashboard = () => {
           {(activeTab === 'employees' || activeTab === 'clients') && (
             <button
               className="tab-button add-button"
+              style={{background: 'linear-gradient(90deg, #02aeee 60%, #77d4f3 100%)', color: '#fff', fontWeight: 700}}
               onClick={() => {
                 setNewUser({
                   name: '',
@@ -297,8 +300,8 @@ const CEODashboard = () => {
                             value={employee.access || 'active'}
                             onChange={e => handleAccessChange(employee._id, 'employee', e.target.value)}
                           >
-                            <option value="active">active</option>
-                            <option value="inactive">inactive</option>
+                            <option value="active">Working</option>
+                            <option value="inactive">Not Working</option>
                           </select>
                         </td>
                         <td>
@@ -440,7 +443,7 @@ const CEODashboard = () => {
                   />
                 </div>
               )}
-              <button type="submit" className="submit-button">
+              <button type="submit" className="submit-button" style={{background: 'linear-gradient(90deg, #02aeee 0%, #77d4f3 100%)', color: '#fff', fontWeight: 700}}>
                 Add {newUser.role === 'employee' ? 'Employee' : 'Client'}
               </button>
             </form>

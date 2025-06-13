@@ -28,7 +28,7 @@
 
 .stat-icon {
   font-size: 2rem;
-  color: #4a90e2;
+  color: #02aeee;
   margin-right: 1rem;
 }
 
@@ -64,7 +64,7 @@
 }
 
 .add-button {
-  background: #4a90e2;
+  background: #02aeee;
   color: white;
   border: none;
   padding: 0.8rem 1.5rem;
@@ -77,7 +77,7 @@
 }
 
 .add-button:hover {
-  background: #357abd;
+  background: #77d4f3;
 }
 
 /* Projects Grid */
@@ -126,7 +126,7 @@
 }
 
 .project-actions button:hover {
-  color: #4a90e2;
+  color: #02aeee;
 }
 
 .project-description {
@@ -206,7 +206,7 @@
 
 .styled-select {
   background: #f8f9fa;
-  border: 1.5px solid #ffa726;
+  border: 1.5px solid #02aeee;
   border-radius: 6px;
   padding: 0.7rem 1rem;
   font-size: 1rem;
@@ -215,7 +215,7 @@
 }
 
 .styled-select:focus {
-  border: 2px solid #ff8800;
+  border: 2px solid #02aeee;
   outline: none;
 }
 
@@ -258,7 +258,7 @@
 
 .form-group label {
   font-weight: 700;
-  color: #ff8800;
+  color: #02aeee;
   font-size: 1.08rem;
   margin-bottom: 0.2rem;
   letter-spacing: 0.01em;
@@ -310,15 +310,15 @@
 }
 
 .submit-button {
-  background: linear-gradient(90deg, #ff8800 0%, #ffa726 100%);
+  background: linear-gradient(90deg, #02aeee 0%, #77d4f3 100%);
   color: white;
   border: none;
   margin-right: 1.2rem;
-  box-shadow: 0 2px 8px rgba(255,136,0,0.08);
+  box-shadow: 0 2px 8px rgba(2, 174, 238, 0.08);
 }
 
 .submit-button:hover {
-  background: linear-gradient(90deg, #ffa726 0%, #ff8800 100%);
+  background: linear-gradient(90deg, #77d4f3 0%, #02aeee 100%);
 }
 
 .cancel-button {
@@ -464,7 +464,7 @@
 }
 
 .checkbox-label input[type="checkbox"] {
-  accent-color: #ffa726;
+  accent-color: #02aeee;
   width: 20px;
   height: 20px;
 } 

@@ -95,7 +95,7 @@ const Login = () => {
             fullWidth
             style={{
               marginTop: 24,
-              background: 'linear-gradient(90deg, #ff6600 0%, #ff9900 100%)',
+              background: 'linear-gradient(90deg, #02aeee 0%, #77d4f3 100%)',
               color: '#fff',
               fontWeight: 700,
               fontSize: 18,

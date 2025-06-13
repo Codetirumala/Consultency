@@ -5,6 +5,7 @@ import axios from 'axios';
 import Lottie from 'lottie-react';
 import loadingAnimation from '../../assets/animations/loading.json';
 import config from '../../config';
+import PolygonLoader from '../PolygonLoader';
 
 const ClientDashboard = () => {
   const navigate = useNavigate();
@@ -14,10 +15,10 @@ const ClientDashboard = () => {
   const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
-    // Show loader for 6-7 seconds after login
+    setShowLoader(true);
     const loaderTimeout = setTimeout(() => {
       setShowLoader(false);
-    }, 6500); // 6.5 seconds
+    }, 8000); // 8 seconds
     fetchData();
     return () => clearTimeout(loaderTimeout);
   }, []);
@@ -45,8 +46,8 @@ const ClientDashboard = () => {
 
   if (showLoader || loading) {
     return (
-      <div className="loading-container">
-        <Lottie animationData={loadingAnimation} loop={true} style={{ width: 200 }} />
+      <div className="loading-container" style={{ background: '#fff', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <PolygonLoader size={120} color="#ffffff" bgColor="rgb(2,174,238)" />
         <p>Loading your dashboard...</p>
       </div>
     );

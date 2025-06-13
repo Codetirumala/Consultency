@@ -199,29 +199,26 @@ const ProjectManagement = () => {
         theme="light"
       />
       
-      <div className="dashboard-header">
-        
-        <h1>CEO Dashboard</h1>
-      </div>
+     
       
       {/* Summary Row - Horizontal with Icons */}
       <div className="projects-summary-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '1rem 0', padding: '1rem', background: '#fff', borderRadius: '10px', boxShadow: '0 2px 8px rgba(0,0,0,0.03)' }}>
-        <div style={{ flex: 1, textAlign: 'center', color: '#ff8800' }}>
+        <div style={{ flex: 1, textAlign: 'center', color: '#02aeee' }}>
           <FaProjectDiagram size={32} />
           <div style={{ fontSize: 28, fontWeight: 700 }}>{stats.totalProjects || 0}</div>
           <div style={{ fontSize: 16, color: '#555', marginTop: 2 }}>Total Projects</div>
         </div>
-        <div style={{ flex: 1, textAlign: 'center', color: '#ff8800' }}>
+        <div style={{ flex: 1, textAlign: 'center', color: '#02aeee' }}>
           <FaChartLine size={32} />
           <div style={{ fontSize: 28, fontWeight: 700 }}>{stats.ongoingProjects || 0}</div>
           <div style={{ fontSize: 16, color: '#555', marginTop: 2 }}>Ongoing</div>
         </div>
-        <div style={{ flex: 1, textAlign: 'center', color: '#ff8800' }}>
+        <div style={{ flex: 1, textAlign: 'center', color: '#02aeee' }}>
           <FaCalendarAlt size={32} />
           <div style={{ fontSize: 28, fontWeight: 700 }}>{stats.completedProjects || 0}</div>
           <div style={{ fontSize: 16, color: '#555', marginTop: 2 }}>Completed</div>
         </div>
-        <div style={{ flex: 1, textAlign: 'center', color: '#ff8800' }}>
+        <div style={{ flex: 1, textAlign: 'center', color: '#02aeee' }}>
           <FaUsers size={32} />
           <div style={{ fontSize: 28, fontWeight: 700 }}>{stats.holdProjects || 0}</div>
           <div style={{ fontSize: 16, color: '#555', marginTop: 2 }}>On Hold</div>
@@ -232,7 +229,7 @@ const ProjectManagement = () => {
       <div className="projects-section">
         <div className="section-header">
           <h2>Projects</h2>
-          <button className="add-button" onClick={() => {
+          <button className="add-button" style={{background: 'linear-gradient(90deg, #02aeee 60%, #77d4f3 100%)', color: '#fff', fontWeight: 700}} onClick={() => {
             setNewProject({
               name: '',
               description: '',
@@ -439,7 +436,7 @@ const ProjectManagement = () => {
                 </div>
               </div>
               <div className="modal-actions">
-                <button type="submit" className="submit-button">Add Project</button>
+                <button type="submit" className="submit-button" style={{background: 'linear-gradient(90deg, #02aeee 0%, #77d4f3 100%)', color: '#fff', fontWeight: 700}}>Add Project</button>
                 <button type="button" className="cancel-button" onClick={() => setShowAddModal(false)}>Cancel</button>
               </div>
             </form>

@@ -15,6 +15,7 @@ import ProfileSection from './ProfileSection';
 import './EmployeeDashboard.css';
 import logo from '../../assets/logo.jpg';
 import config from '../../config';
+import PolygonLoader from '../PolygonLoader';
 
 // Lottie animations
 import profileAnimation from '../../assets/animations/profile.json';
@@ -26,15 +27,15 @@ const DashboardContainer = styled(motion.div)`
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
-  background: #fff7f0;
+  background: var(--background);
   min-height: 100vh;
 `;
 
 const Header = styled(motion.div)`
-  background: linear-gradient(90deg, #ff8800 60%, #ffb347 100%);
+  background: linear-gradient(90deg, var(--primary) 60%, var(--primary-light) 100%);
   padding: 36px 40px;
   border-radius: 20px;
-  box-shadow: 0 4px 16px rgba(255, 136, 0, 0.08);
+  box-shadow: var(--shadow);
   margin-bottom: 32px;
   color: #fff;
 `;
@@ -46,7 +47,7 @@ const TabContainer = styled(motion.div)`
   padding: 10px;
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(255, 136, 0, 0.06);
+  box-shadow: var(--shadow-sm);
   justify-content: center;
 `;
 
@@ -55,18 +56,18 @@ const TabButton = styled(motion.button)`
   align-items: center;
   gap: 10px;
   padding: 12px 32px;
-  background: ${props => props.active ? 'linear-gradient(90deg, #ff8800 60%, #ffb347 100%)' : '#fff'};
-  color: ${props => props.active ? '#fff' : '#ff8800'};
+  background: ${props => props.active ? 'linear-gradient(90deg, var(--primary) 60%, var(--primary-light) 100%)' : '#fff'};
+  color: ${props => props.active ? '#fff' : 'var(--primary)'};
   border: none;
   border-radius: 24px;
   cursor: pointer;
   font-size: 1.1rem;
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(255, 136, 0, 0.06);
+  box-shadow: var(--shadow-sm);
   transition: background 0.2s, color 0.2s;
 
   &:hover {
-    background: linear-gradient(90deg, #ffb347 0%, #ff8800 100%);
+    background: linear-gradient(90deg, var(--primary-light) 0%, var(--primary) 100%);
     color: #fff;
     transform: translateY(-2px);
   }
@@ -76,7 +77,7 @@ const ContentContainer = styled(motion.div)`
   background: #fff;
   padding: 32px 24px 24px 24px;
   border-radius: 18px;
-  box-shadow: 0 2px 8px rgba(255, 136, 0, 0.06);
+  box-shadow: var(--shadow-sm);
   margin: 0 24px;
 `;
 
@@ -90,7 +91,7 @@ const StatsContainer = styled(motion.div)`
 const StatCard = styled(motion.div)`
   background: #fff;
   border-radius: 18px;
-  box-shadow: 0 2px 8px rgba(255, 136, 0, 0.06);
+  box-shadow: var(--shadow-sm);
   padding: 32px 36px;
   display: flex;
   flex-direction: column;
@@ -102,17 +103,17 @@ const StatCard = styled(motion.div)`
   transition: box-shadow 0.2s, transform 0.2s;
   .stat-icon {
     font-size: 2.2rem;
-    color: #ff8800;
+    color: var(--primary);
     margin-bottom: 6px;
   }
   .stat-info h3 {
     font-size: 2.1rem;
     margin: 0;
-    color: #ff8800;
+    color: var(--primary);
     font-weight: 700;
   }
   .stat-info p {
-    color: #6b7280;
+    color: var(--text-light);
     font-size: 1rem;
     margin: 0;
   }
@@ -128,10 +129,10 @@ const EmployeeDashboard = () => {
   const [activeTab, setActiveTab] = useState('profile');
 
   useEffect(() => {
-    // Show loader for 6-7 seconds after login
+    setShowLoader(true);
     const loaderTimeout = setTimeout(() => {
       setShowLoader(false);
-    }, 6500); // 6.5 seconds
+    }, 8000); // 8 seconds
     fetchData();
     return () => clearTimeout(loaderTimeout);
   }, []);
@@ -191,8 +192,8 @@ const EmployeeDashboard = () => {
 
   if (showLoader || loading) {
     return (
-      <div className="loading-container">
-        <Lottie animationData={loadingAnimation} loop={true} style={{ width: 200 }} />
+      <div className="loading-container" style={{ background: '#fff', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <PolygonLoader size={120} color="#ffffff" bgColor="rgb(2,174,238)" />
         <p>Loading your dashboard...</p>
       </div>
     );

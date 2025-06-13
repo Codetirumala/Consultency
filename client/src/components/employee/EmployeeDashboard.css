@@ -1,18 +1,18 @@
 /* Base Styles */
 :root {
-  --primary: #ff8800;
-  --primary-light: #ffb347;
+  --primary: #02aeee;
+  --primary-light: #77d4f3;
   --secondary: #6b7280;
   --success: #10b981;
   --danger: #ef4444;
   --warning: #f59e0b;
   --info: #3b82f6;
-  --background: #fff7f0;
+  --background: #f8f9fa;
   --text: #1f2937;
   --text-light: #6b7280;
-  --border: #ffe0b2;
-  --shadow: 0 4px 16px rgba(255, 136, 0, 0.08);
-  --shadow-sm: 0 2px 8px rgba(255, 136, 0, 0.06);
+  --border: #e0f4fa;
+  --shadow: 0 4px 16px rgba(2, 174, 238, 0.08);
+  --shadow-sm: 0 2px 8px rgba(2, 174, 238, 0.06);
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
 }
 
@@ -243,7 +243,7 @@ body {
 
 .form-group input:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 2px rgba(255, 136, 0, 0.1);
+  box-shadow: 0 0 0 2px rgba(2, 174, 238, 0.1);
   outline: none;
 }
 

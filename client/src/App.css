@@ -92,16 +92,16 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
+  background-color: #fff;
+  border-bottom: 1px solid #FFF;
 }
 
 .logout-button {
-  padding: 0.5rem 1rem;
-  background-color: #dc3545;
+  padding: 1rem 1rem;
+  background-color: #02aeee;
   color: white;
   border: none;
-  border-radius: 4px;
+  
   cursor: pointer;
   font-size: 1rem;
 }
@@ -286,18 +286,18 @@
   align-items: center;
   gap: 8px;
   padding: 10px 20px;
-  background: linear-gradient(90deg, #f97316 60%, #ffb347 100%);
+  background: linear-gradient(90deg, #02aeee 60%, #77d4f3 100%);
   color: #fff;
   border: none;
   border-radius: 24px;
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.08);
+  box-shadow: 0 2px 8px rgba(2, 174, 238, 0.08);
   transition: background 0.2s;
 }
 .logout-button:hover {
-  background: linear-gradient(90deg, #ffb347 0%, #f97316 100%);
+  background: linear-gradient(90deg, #77d4f3 0%, #02aeee 100%);
 }
 
 .dashboard-stats {
@@ -321,7 +321,7 @@
 }
 .stat-icon {
   font-size: 2.2rem;
-  color: #f97316;
+  color: #02aeee;
   margin-bottom: 6px;
 }
 .stat-info h3 {
@@ -344,26 +344,19 @@
   cursor: pointer;
   font-size: 1.1rem;
   font-weight: 600;
-  color: #f97316;
+  color: #02aeee;
   transition: background 0.2s, color 0.2s;
-  box-shadow: 0 1px 4px rgba(249, 115, 22, 0.04);
+  box-shadow: 0 1px 4px rgba(2, 174, 238, 0.04);
 }
 .tab-button.active {
-  background: linear-gradient(90deg, #f97316 60%, #ffb347 100%);
+  background: linear-gradient(90deg, #02aeee 60%, #77d4f3 100%);
   color: #fff;
 }
 .add-button {
-  background: linear-gradient(90deg, #f97316 60%, #ffb347 100%) !important;
-  color: #fff !important;
+  background: linear-gradient(90deg, #02aeee 60%, #77d4f3 100%);
+  color: #fff;
   font-weight: 700;
   margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.08);
-}
-.add-button:hover {
-  background: linear-gradient(90deg, #ffb347 0%, #f97316 100%) !important;
 }
 
 .users-table {
@@ -381,7 +374,7 @@
 }
 .users-table th {
   background: #f7f8fa;
-  color: #f97316;
+  color: #02aeee;
   font-size: 1.05rem;
   font-weight: 700;
   position: sticky;
@@ -395,7 +388,7 @@
   background: #fcfcfc;
 }
 .users-table tbody tr:hover {
-  background: #fff7ed;
+  background: #f0f9ff;
 }
 .status-badge {
   display: inline-block;
@@ -445,7 +438,7 @@
   border: none;
   font-size: 22px;
   cursor: pointer;
-  color: #f97316;
+  color: #02aeee;
 }
 .add-user-form {
   display: grid;
@@ -455,7 +448,7 @@
 }
 .form-group label {
   font-weight: 600;
-  color: #f97316;
+  color: #02aeee;
   margin-bottom: 4px;
 }
 .form-group input {
@@ -467,11 +460,11 @@
   transition: border 0.2s;
 }
 .form-group input:focus {
-  border-color: #f97316;
+  border-color: #02aeee;
   outline: none;
 }
 .submit-button {
-  background: linear-gradient(90deg, #f97316 60%, #ffb347 100%);
+  background: linear-gradient(90deg, #02aeee 60%, #77d4f3 100%);
   color: #fff;
   padding: 12px;
   border: none;
@@ -483,7 +476,7 @@
   transition: background 0.2s;
 }
 .submit-button:hover {
-  background: linear-gradient(90deg, #ffb347 0%, #f97316 100%);
+  background: linear-gradient(90deg, #77d4f3 0%, #02aeee 100%);
 }
 
 /* Responsive */
@@ -536,7 +529,7 @@
   position: absolute;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle at center, rgba(249, 115, 22, 0.05) 0%, transparent 50%);
+  background: radial-gradient(circle at center, rgba(2, 174, 238, 0.05) 0%, transparent 50%);
   animation: rotate 30s linear infinite;
 }
 
@@ -593,7 +586,7 @@
   left: 0;
   width: 60px;
   height: 4px;
-  background: linear-gradient(to right, #f97316, transparent);
+  background: linear-gradient(to right, #02aeee, transparent);
   border-radius: 2px;
 }
 
@@ -614,13 +607,13 @@
 }
 
 .feature {
-  background: rgba(249, 115, 22, 0.03);
+  background: rgba(2, 174, 238, 0.03);
   padding: 1.5rem;
   border-radius: 16px;
   text-align: center;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(249, 115, 22, 0.1);
+  border: 1px solid rgba(2, 174, 238, 0.1);
   position: relative;
   overflow: hidden;
 }
@@ -632,16 +625,16 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(45deg, transparent, rgba(249, 115, 22, 0.05), transparent);
+  background: linear-gradient(45deg, transparent, rgba(2, 174, 238, 0.05), transparent);
   transform: translateX(-100%);
   transition: transform 0.6s;
 }
 
 .feature:hover {
   transform: translateY(-5px);
-  background: rgba(249, 115, 22, 0.05);
-  border-color: rgba(249, 115, 22, 0.2);
-  box-shadow: 0 8px 32px rgba(249, 115, 22, 0.1);
+  background: rgba(2, 174, 238, 0.05);
+  border-color: rgba(2, 174, 238, 0.2);
+  box-shadow: 0 8px 32px rgba(2, 174, 238, 0.1);
 }
 
 .feature:hover::before {
@@ -651,7 +644,7 @@
 .feature-icon {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #f97316;
+  color: #02aeee;
   transition: transform 0.3s ease;
 }
 
@@ -728,7 +721,7 @@
 }
 
 .input-group input:focus {
-  border-color: #f97316;
+  border-color: #02aeee;
   outline: none;
   box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1);
 }
@@ -744,7 +737,7 @@
 .login-button {
   width: 100%;
   padding: 0.9rem;
-  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  background: linear-gradient(135deg, #02aeee 0%, #77d4f3 100%);
   color: white;
   border: none;
   border-radius: 12px;
@@ -770,7 +763,7 @@
 
 .login-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+  box-shadow: 0 8px 20px rgba(2, 174, 238, 0.3);
 }
 
 .login-button:hover::before {
@@ -784,7 +777,7 @@
 
 .error-message {
   background: #fee2e2;
-  color: #dc2626;
+  color: #02aeee;
   padding: 0.9rem;
   border-radius: 12px;
   margin-bottom: 1.2rem;
@@ -883,8 +876,9 @@
 }
 
 .add-button {
-  background: #f97316 !important;
-  color: white !important;
+  background: linear-gradient(90deg, #02aeee 60%, #77d4f3 100%);
+  color: #fff;
+  font-weight: 700;
   margin-left: auto;
 }
 
@@ -946,7 +940,7 @@
 }
 
 .form-group input:focus {
-  border-color: #f97316;
+  border-color: #02aeee;
   outline: none;
 }
 
