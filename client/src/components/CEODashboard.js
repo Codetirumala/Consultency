@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import loadingAnimation from '../assets/animations/loading.json';
 import Lottie from 'lottie-react';
 import ProjectManagement from './ceo/ProjectManagement';
+import config from '../config';
 
 const CEODashboard = () => {
   const [activeTab, setActiveTab] = useState('employees');
@@ -32,12 +33,7 @@ const CEODashboard = () => {
   axios.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`;
 
   useEffect(() => {
-    // Show loader for 6-7 seconds after login
-    const loaderTimeout = setTimeout(() => {
-      setShowLoader(false);
-    }, 6500); // 6.5 seconds
     fetchData();
-    return () => clearTimeout(loaderTimeout);
   }, []);
 
   const handleLogout = () => {
@@ -71,11 +67,12 @@ const CEODashboard = () => {
   const fetchData = async () => {
     try {
       const [employeesRes, clientsRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/ceo/employees'),
-        axios.get('http://localhost:5000/api/ceo/clients')
+        axios.get(`${config.API_URL}/api/ceo/employees`),
+        axios.get(`${config.API_URL}/api/ceo/clients`)
       ]);
       setEmployees(employeesRes.data);
       setClients(clientsRes.data);
+      setShowLoader(false);
     } catch (error) {
       console.error('Failed to fetch data:', error);
       if (error.response?.status === 401) {
@@ -93,8 +90,8 @@ const CEODashboard = () => {
     e.preventDefault();
     try {
       const endpoint = newUser.role === 'employee' 
-        ? 'http://localhost:5000/api/ceo/employees'
-        : 'http://localhost:5000/api/ceo/clients';
+        ? `${config.API_URL}/api/ceo/employees`
+        : `${config.API_URL}/api/ceo/clients`;
       
       const userData = {
         name: newUser.name,
@@ -142,8 +139,8 @@ const CEODashboard = () => {
     if (!window.confirm('Are you sure you want to delete this user?')) return;
     try {
       const endpoint = role === 'employee'
-        ? `http://localhost:5000/api/ceo/employees/${userId}`
-        : `http://localhost:5000/api/ceo/clients/${userId}`;
+        ? `${config.API_URL}/api/ceo/employees/${userId}`
+        : `${config.API_URL}/api/ceo/clients/${userId}`;
       await axios.delete(endpoint);
       notify('User deleted successfully!', 'success');
       await fetchData();
@@ -156,8 +153,8 @@ const CEODashboard = () => {
   const handleAccessChange = async (userId, role, newAccess) => {
     try {
       const endpoint = role === 'employee'
-        ? `http://localhost:5000/api/ceo/employees/${userId}`
-        : `http://localhost:5000/api/ceo/clients/${userId}`;
+        ? `${config.API_URL}/api/ceo/employees/${userId}`
+        : `${config.API_URL}/api/ceo/clients/${userId}`;
       await axios.put(endpoint, { access: newAccess });
       notify('Access updated!', 'success');
       await fetchData();
